@@ -1,0 +1,13 @@
+webpack
+    babel
+    scss/sass
+    eslint
+    tool mods
+        dev
+            dev server
+            source map
+            eslint
+            not minified js && ncss
+        prod
+            minified code
+git
