@@ -1,8 +1,8 @@
 const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require("copy-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const CopyPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 const isProd = process.env.NODE_END === 'production'
@@ -22,7 +22,7 @@ const filename = (ext) => isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  mode: "development",
+  mode: 'development',
   devtool: isDev ? 'source-map': false,
   entry: ['@babel/polyfill', './index'],
   devServer: {
@@ -39,6 +39,7 @@ module.exports = {
     extensions: ['.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@core': path.resolve(__dirname, 'src/core')
     }
   },
   plugins: [
@@ -51,14 +52,14 @@ module.exports = {
       }
     }),
     new ESLintPlugin(),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: path.resolve(__dirname, 'src', 'favicon.ico'),
-    //       to: path.resolve(__dirname, 'dist'),
-    //     },
-    //   ],
-    // }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src', 'favicon.ico'),
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
     new MiniCssExtractPlugin({
       filename: filename('css')
     })
@@ -69,15 +70,15 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
+          'css-loader',
+          'sass-loader'
         ],
       },
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: importLoaders(),
-      },
-    ],
-  },
+      }
+    ]
+  }
 }
