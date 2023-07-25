@@ -28,6 +28,8 @@ module.exports = {
   devServer: {
     port: 3004,
     hot: isDev,
+    historyApiFallback: true,
+    static: './'
   },
   output: {
     filename: filename('js'),
