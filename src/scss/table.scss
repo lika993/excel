@@ -14,7 +14,26 @@
     flex-direction: row;
     min-height: 20px;
     height: $row-height;
-  }
+    &-resize {
+        left: 0;
+        height: 2px;
+        &:hover {
+            cursor: row-resize;
+        }
+    }
+ }
+
+ .excel__row-resize, .excel__column-resize {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: $primary-color;
+    opacity: 0;
+    z-index: 1000;
+    &:hover {
+        opacity: 1 !important;
+    }
+ }
 
 .excel__row-info {
     display: flex;
@@ -25,6 +44,7 @@
     border: 1px solid $border-color;
     background: #f8f9fa;
     border-top: none;
+    position: relative;
 }
 
 .excel__row-data {
@@ -42,6 +62,14 @@
     border-top: 0;
     border-left: 0;
     height: 100%;
+    position: relative;
+    &-resize {
+        top: 0;
+        width: 2px;
+        &:hover {
+            cursor: col-resize;
+        }
+    }
   }
 
 .excel__cell {
@@ -59,7 +87,7 @@
 
     &.selected {
       border: none;
-      outline: 2px solid #3c74ff;
+      outline: 2px solid $primary-color;
       z-index: 2;
     }
 }
