@@ -3,10 +3,18 @@ const CODES = {
   Z: 90
 }
 
-function toCell(_, column) {
-  return `
-    <div class="excel__cell" contenteditable data-column="${column}"></div>
-  `
+function toCell(row) {
+  return function(_, column) {
+    return `
+      <div class="excel__cell"
+          contenteditable
+          data-column="${column}"
+          data-id="${row}:${column}"
+          data-type="cell"
+        >
+      </div>
+    `
+  }
 }
 
 function toColumn(column, index) {
@@ -47,12 +55,12 @@ export function createTable(rowCount= 15) {
       .fill('')
       .map(toChar).map(toColumn).join('')
   rows.push(createRow(null, cols))
-  for (let i = 0; i < rowCount; i++) {
+  for (let row = 0; row < rowCount; row++) {
     const cells = new Array(colsCoount)
         .fill('')
-        .map(toCell)
+        .map(toCell(row))
         .join('')
-    rows.push(createRow(i + 1, cells))
+    rows.push(createRow(row + 1, cells))
   }
   return rows.join('')
 }
